@@ -1,0 +1,1210 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>Drive Template Documentation</title>
+    
+	<link rel="icon" type="image/png" href="favicon-2.html">
+    	<!-- This is the traditional favicon.
+		 - size: 16x16 or 32x32
+		 - transparency is OK
+		 - see wikipedia for info on browser support: http://mky.be/favicon/-->
+		 
+	<link rel="apple-touch-icon" href="apple-touch-icon-precomposed-2.html">
+	<!-- The is the icon for iOS's Web Clip.
+		 - size: 57x57 for older iPhones, 72x72 for iPads, 114x114 for iPhone4's retina display (IMHO, just go ahead and use the biggest one)
+		 - To prevent iOS from applying its styles to the icon name it thusly: apple-touch-icon-precomposed.gif
+		 - Transparency is not recommended (iOS will put a black BG behind the icon) -->
+         
+	<meta name="description" content="">
+	<meta name="author" content="Falcon Creative Studio - Shahul Hameed">
+	
+    <!-- Fonts -->
+    <link rel="stylesheet" type="text/css" href="css/fonts-2.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome-2.css">
+    
+    <!-- Bootstrap -->
+	<link href="css/bootstrap-2.css" rel="stylesheet" type="text/css" media="all">
+    
+    <link rel="stylesheet" type="text/css" href="css/style-2.css">
+    <link rel="stylesheet" type="text/css" href="colors-css/default-2.css">
+    <link rel="stylesheet" type="text/css" href="css/responsive-2.css">
+	<link type="text/css" rel="stylesheet" href="css/syntax-highlighter-2.css">
+    <style>
+	.colorCss{
+		color: white;
+		display: inline-block;
+		width: 120px;
+		text-align: center;
+		padding: 10px 5px;
+	}
+	
+	/* Special grid styles
+-------------------------------------------------- */
+
+	.show-grid {
+	  margin-top: 10px;
+	  margin-bottom: 20px;
+	}
+	.show-grid [class*="span"] {
+	  background-color: #eee;
+	  text-align: center;
+	  -webkit-border-radius: 3px;
+		 -moz-border-radius: 3px;
+			  border-radius: 3px;
+	  min-height: 40px;
+	  line-height: 40px;
+	}
+	.show-grid:hover [class*="span"] {
+	  background: #ddd;
+	}
+	.show-grid .show-grid {
+	  margin-top: 0;
+	  margin-bottom: 0;
+	}
+	.show-grid .show-grid [class*="span"] {
+	  background-color: #ccc;
+	}
+
+
+	</style>
+    <script src="js/libs/modernizr-2.5.3.min-2.js"></script>
+</head>
+<body>
+<!--[if lte IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+<!-- Top Header -->
+<div class="pageTopCon drop-shadow curved">
+	<div class="pageTop row-fluid">
+        <div class="span6"><p><span>E: info@yoursite.com</span>&emsp;<span>T: + (009) 123 4567</span></p></div>
+        <div class="span6">
+            <p class="pull-right socialIcons">
+            	<a href="#" class="twitter" title="Twitter">Twitter</a>
+                <a href="#" class="facebook" title="Facebook">Facebook</a>
+                <a href="#" class="gplus" title="Gplus">G+</a>
+                <a href="#" class="linkedin" title="linkedin">Linked In</a>
+                <a href="#" class="dribble" title="Dribble">Dribble</a>
+                <a href="#" class="flickr" title="Flickr">Flickr</a>
+                <a href="#" class="vimeo" title="Vimeo">vimeo</a>
+                <a href="#" class="rss" title="Rss">Rss</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Page Header -->
+<header id="pageHeader" class="clearfix">
+    <div id="logo">
+        <a href="index-4.html">Drive</a>
+    </div>
+    <nav id="mainNav">
+    	<ul class="menu">
+        	<li class="mainMenu parent"><a href="index-4.html">Home</a><span class="taline">start here</span>
+                <ul>
+                  	<li class="arrow"></li>
+                    <li><a href="index-4.html">Home Page 1</a></li>
+                    <li><a href="home-page-3.html">Home Page 2</a></li>
+                    <li><a href="home-page-4.html">Home Page 3</a></li>
+                    <li><a href="home-page-5.html">Home Page 4</a></li>
+                  	<li class="border"></li>
+                </ul>
+            </li>
+            <li class="mainMenu parent active">
+            	<a href="about-2.html">Features</a><span class="taline">list of all pages</span>
+            	<ul>
+                  <li class="arrow"></li>
+                  <li><a href="about-2.html">About Us</a></li>
+                  <li>
+                  <a href="services-2.html">Services <span class="plus">+</span></a>
+                      <ul>
+                            <li class="arrow"></li>
+                            <li><a href="services-2.html">Services 1</a></li>
+                            <li><a href="services-3.html">Services 2</a></li>
+                            <li class="border"></li>
+                      </ul>
+                  </li>
+                  <li>
+                  	<a href="portfolio-col-5.html">Portfolio  <span class="plus">+</span></a>
+                  	<ul>
+                    	<li class="arrow"></li>
+                    	<li><a href="portfolio-col-6.html">Two Col Portfolio</a></li>
+                        <li><a href="portfolio-col-5.html">Three Col Portfolio</a></li>
+                        <li><a href="portfolio-col-7.html">Four Col Portfolio</a></li>
+                        <li><a href="single-portfolio-2.html">Single Portfolio</a></li>
+                        <li class="border"></li>
+                    </ul>
+                  </li>
+                  <li>
+                  	<a href="blog-2.html">Blog <span class="plus">+</span></a>
+                    <ul>
+                    	<li class="arrow"></li>
+                    	<li><a href="blog-2.html">Blog</a></li>
+                        <li><a href="single-post-2.html">Single Post</a></li>
+                        <li class="border"></li>
+                    </ul>
+                  </li>
+                  <li><a href="columns-2.html">Columns</a></li>
+                  <li><a href="shortcodes-2.html">Shortcodes</a></li>
+                  <li><a href="pricing-table-2.html">Pricing Table</a></li>
+                  <li class="border"></li>
+                </ul>
+            </li>
+            <li class="mainMenu parent">
+            	<a href="portfolio-col-5.html">Portfolio</a><span class="taline">our featured works</span>
+            	<ul>
+                    <li class="arrow"></li>
+                    <li><a href="portfolio-col-6.html">Two Col Portfolio</a></li>
+                    <li><a href="portfolio-col-5.html">Three Col Portfolio</a></li>
+                    <li><a href="portfolio-col-7.html">Four Col Portfolio</a></li>
+                    <li><a href="single-portfolio-2.html">Single Portfolio</a></li>
+                    <li class="border"></li>
+                </ul>
+            </li>
+            <li class="mainMenu"><a href="blog-2.html">Blog</a><span class="taline">latest news</span></li>
+            <li class="mainMenu"><a href="contact-2.html">Contact</a><span class="taline">write message</span></li>
+        </ul>
+    </nav>
+</header>
+<!-- Banner -->
+<div id="bannerCon" class="sub clear drop-shadow curved">
+	<div id="banner" class="row-fluid">
+        <header class="bannerHeader span8">
+            <h2><span class="orange">Drive</span> Documentation</h2>
+          	<p class="tagline">Learn how to setup Drive Template</p>
+        </header>
+        <div class="span4">
+        	<ul class="breadcrumb">
+              <li><a href="index-4.html">Home</a> <span class="divider">/</span></li>
+              <li class="active">Documentation</li>
+            </ul>
+        </div>
+     </div>   
+</div>
+
+<div role="main" id="mainContent" class="center">
+    <section>
+		<h1>Drive Responsive Template Documentation v 1.0</h1>
+      	<p><strong>Created :</strong> Dec 6 2012 <br>
+			By: <a href="http://www.falconcreativestudio.com/">Falcon Creative Studio</a><br>
+            <br>
+        	Thank you for purchasing our theme. If you have any questions that are beyond the scope of this help file, please feel free to email via user page contact form <a href="http://themeforest.net/user/FalconCreativeStudio">here</a>. Thank You so much and Please Rate this Template.</p>
+       
+      <h2>Important Info</h2>
+        <p>We used three Webfont from Font Spring. All three web fonts are free, but not allowed distributed commercially. Please download it from below link and choose below mentioned fonts only. Others are costly and not used in this template.</p>
+        <p><strong>Nexa Bold (Used in headings):</strong><br><a href="http://www.fontspring.com/fonts/fontfabric/nexa">http://www.fontspring.com/fonts/fontfabric/nexa</a><br><br>
+        <strong>Museo Sans 500 &amp; Museo Sans 500 Italic (Used in body texts):</strong><br><a href="http://www.fontspring.com/fonts/exljbris/museo-sans">http://www.fontspring.com/fonts/exljbris/museo-sans</a></p>
+    </section>
+    
+    <section class="newSection">
+      <h2>1. Installing Template</h2>
+      <p>After you downloaded and unzip the template. Open Template folder and open fonts. We already create two folders (museo_sans and nexa). You have to download the fonts from above link and extract both fonts in respective folders. Check image below, you will understand. (Note: Both Museo Sans 500 &amp; Museo Sans 500 Italic goes inside museo_sans folder). </p>
+      <img src="img/doc/fonts-2.png" alt="">
+    </section>
+    
+    <section>
+      <h2>2. Theme Features</h2>
+      <p>Drive have lots of features. Some of them are listed below.</p>
+      <ul>
+      	<li class="icon-star">Fully Reponsive Design</li>
+        <li class="icon-star">15 Different Pages</li>
+        <li class="icon-star">Template Created using HTML5/CSS3 and Bootstrap</li>
+        <li class="icon-star">Font Awesome Included</li>
+        <li class="icon-star">Unlimited Colors (Less Files also included)</li>
+        <li class="icon-star">20 Predefined Colors</li>
+        <li class="icon-star">2 Home Page Layouts</li>
+        <li class="icon-star">2 Services Layouts</li>
+        <li class="icon-star">3 CSS3 Hover Effects</li>
+        <li class="icon-star">Filterable Portfolio</li>
+        <li class="icon-star">Responsive Sliders</li>
+        <li class="icon-star">Ajax Contact Form</li>
+        <li class="icon-star">2 Different Pricing Tables</li>
+        <li class="icon-star">50+ Shortcodes</li>
+        <li class="icon-star">Easy Cutomization</li>
+      </ul>
+  </section>
+    
+    <section>
+      <h2>3. Color Scheme</h2>
+      <p>Drive come 20 different color scheme. All colors styles css files are in <strong>color-css</strong> folder. To change the theme color first pick a color from <a href="#colorName">color css name in below section</a> or from our <a href="index-3.html">demo site</a>. And search for below code in <span class="highlight">&lt;head&gt;</span> tag and replace <span class="highlight">default.css</span> with the color you pick (eg: surfie-green.css) in all pages. We also include less folder. If you know how to use less then open less folder and open variables.less. Adjust color variables and compile color.less and style.less files to get your own color.
+      <pre class="brush: css;">
+      	&nbsp;
+      	<!-- Search for below code and replace default.css with the color you pick from demo site -->
+        
+        <link rel="stylesheet" type="text/css" href="colors-css/default-2.css">
+        
+      </pre>
+      </p>
+
+    </section>
+    
+    <section>
+      <h2>4. List of Pages</h2>
+      <p>Drive comes with 15 different pages as follows.</p>
+      <ol>
+      	<li>Home Page 1</li>
+        <li>Home Page 2</li>
+        <li>About</li>
+        <li>Services 1</li>
+        <li>Services 2</li>
+        <li>Contact</li>
+        <li>Two Column Portfolio</li>
+        <li>Three Column Portfolio</li>
+        <li>Four Column Portfolio</li>
+        <li>Single Portfolio</li>
+        <li>Columns</li>
+        <li>Shortcodes</li>
+        <li>Pricing Table</li>
+        <li>Blog</li>
+        <li>Single Post</li>
+      </ol>
+    </section>
+    
+    <section>
+      <h2 class="noMarginBottom">5. List of CSS, JS & PHP Files</h2>
+      <div class="sep"></div><br>
+
+      <h3>5.1 CSS Files: All css files are in css folder. Color css are in folder color-css folder.</h3>
+      <p>CSS Files are Well Commented. You can easily find and edit the rules. But in our demo site, we used compress version to load quickly. A part of its screenshot below.<br>
+      <img src="img/doc/css-with-comments-2.png" alt=""></p>
+
+      <ol>
+        <li><span class="highlight">style.css</span> - All template styles present in this file</li>
+      	<li><span class="highlight">bootstrap.css</span> - default unedited bootstrap css file</li>
+        <li><span class="highlight">font-awesome.css</span> - The iconic font designed for use with Twitter Bootstrap (<a href="http://fortawesome.github.com/Font-Awesome/">Font Awesome url</a>)</li>
+        <li><span class="highlight">fonts.css</span> - @Fontface syntax found in this css</li>
+        <li><span class="highlight">jquery-ui-1.9.1.custom.min.css</span> - Custom jQuery ui css</li>
+        <li><span class="highlight">responsive.css</span> - All responsive Styles found here.</li>
+        <li><span class="highlight">sequence.css</span> - Slider Css </li>
+      </ol>
+     
+      <h3> <a id="colorName" href="#">&nbsp;</a>5.1.1. Color CSS: css name is in braces.</h3>
+      <p>
+      	<span class="colorCss" style="background: #ed5f30;">orange (default): #ed5f30<br>   (default.css)</span>
+        <span class="colorCss" style="background: #8D95C3;">Blue Bell : <br> #8D95C3<br>    (blue-bell.css)</span>
+        <span class="colorCss" style="background: #1C4A72;">Blumine Blue : 	#1C4A72<br>     (blumine-blue.css)</span>
+        <span class="colorCss" style="background: #3d82b1;">Boston Blue 	: 	#3d82b1<br> (boston-blue.css)</span>
+        <span class="colorCss" style="background: #426195;">San Marino Blue	: 	#426195<br> (marino-blue.css)</span>
+        <span class="colorCss" style="background: #b15596;">Tapestry (pink)	: 	#b15596<br> (tapestry-pink.css)</span>
+        <span class="colorCss" style="background: #CF87C1;">Viola	:<br> 	#CF87C1<br>     (viola.css)</span>
+        <span class="colorCss" style="background: #D61646;">Crimson red	: 	#D61646     <br>(crimson-red.css)</span>
+        <span class="colorCss" style="background: #CC3333;">Persian Red :	#CC3333     <br>(persian-red.css)</span>
+        <span class="colorCss" style="background: #B07838;">Copper Brown: 	#B07838 <br>    (copper-brown.css)</span>
+        <span class="colorCss" style="background: #118D78;">Surfie Green: 	#118D78     <br>(surfie-green.css)</span>
+        <span class="colorCss" style="background: #3B8F64;">Viridian Green: 	#3B8F64 <br>(viridian-green.css)</span>
+        <span class="colorCss" style="background: #397028;">Forest Green: 	#397028     <br>(forest-green.css)</span>
+        <span class="colorCss" style="background: #679367;">Highland Green: 	#679367 <br>(highland-green.css)</span>
+        <span class="colorCss" style="background: #8062B1;">Deluge(voilet): 	#8062B1 <br>(deluge-voilet.css)</span>
+        <span class="colorCss" style="background: #555682;">Comet blue:	#555682     <br>(comet-blue.css)</span>
+        <span class="colorCss" style="background: #E06338;">Flame Pea:<br>	#E06338 <br>(flame-pea-orange .css)</span>
+		<span class="colorCss" style="background: #28778e;">Jelly Bean magenta: #28778e<br> (jelly-bean-magenta.css)</span>
+        <span class="colorCss" style="background: #B1353C;">Well Read(choco): 	#B1353C <br>(well-read-choco.css)</span>
+        <span class="colorCss" style="background: #468ACE;">Havelock<br>Blue: <br>	#468ACE <br>(havelock-blue.css)</span>
+        <span class="colorCss" style="background: #9D8CBA;">Lavender<br>Purple: <br>	#9D8CBA <br>(lavender-purple.css)</span>
+      </p>
+
+      <h3>5.2. Js Files: All css files are in js folder.</h3>
+        <ol>
+            <li><span class="highlight">bootstrap.js</span> - default and edited bootstrap js file. We added necessary codes only.</li>
+            <li><span class="highlight">jquery.quicksand</span> - This plugin is used in filterable portfolio.</li>
+            <li><span class="highlight">plugins.js</span> - This contain all other pugins used in this template. Which helps to cache and load you site quickly </li>
+            <li><span class="highlight">script.js</span> - This file contain all custom jquery code necessary for this template.</li>
+            <li><span class="highlight">sequence.js</span> - This is sequence slider plugin.</li>
+            <li><span class="highlight">modernizr</span> -  JavaScript library that detects HTML5 and CSS3 features in the user&rsquo;s browser.</li>
+            <li><span class="highlight">jQuery</span> - JavaScript Library.</li>
+      </ol>
+      <span class="highlight">Note: if you found same file name with .min in end of js or css, that files is same as original but it is a compressed version.</span>
+  </section>
+    
+    <section>
+      <h2 class="noMarginBottom">6. HTML Structure</h2>
+      <div class="sep"></div><br>
+      
+      <h3>6.1. General HTML Structure</h3>
+      <pre class="brush: css;">
+      &nbsp;
+		&lt;body&gt;
+        
+        
+        
+        <!-- 
+        -----------------------------
+        	 1. Page Top Header
+        ------------------------------
+        -->
+        
+        <div class="pageTopCon drop-shadow curved">
+            <div class="pageTop row-fluid">
+                .......
+                .......
+                .......
+            </div>
+        </div>
+        
+        
+        
+        <!-- 
+        -----------------------------
+        	 2. Page Header
+        ------------------------------
+        -->
+        <header id="pageHeader" class="clearfix">
+        
+        	<!-- Logo -->
+            <div id="logo">
+                <a href="index-4.html">Drive</a>
+            </div>
+            
+            <!-- Navigation -->
+            <nav id="mainNav">
+                .......
+                .......
+                .......
+            </nav>
+        </header>
+
+
+
+        <!-- 
+        ------------------------------------------
+        	3. Banner / Sub Banner / Sub Header
+        ------------------------------------------
+        -->
+        <div id="bannerCon" class="clear drop-shadow curved">
+            .......
+            .......
+            .......
+        </div>
+
+
+
+        <!-- 
+        ---------------------------
+        	4. Page Content
+        ---------------------------
+        -->
+        <div role="main" id="mainContent" class="center">
+            
+            <!-- Every new Section  Starts with the <section class="newSection">. newSection helps to seperate section with 70px bottom Margin  -->
+            <section class="newSection">
+                .......
+                .......
+                .......            
+            </section>
+            
+            <!-- New Section -->
+            <section class="newSection">
+            	.......
+                .......
+                ....... 
+            </section>
+                
+            <!-- New Section -->
+            <section class="newSection">
+                .......
+                .......
+                ....... 
+            </section>
+            
+        </div>
+
+
+
+
+        <!-- 
+        ---------------------------
+        	5. Footer
+        ---------------------------
+        --> 
+        <footer id="pageFooterCon">
+          <div id="pageFooter" class="center row-fluid">
+                <!-- widgets -->
+                <div class="widgets clearfix">
+                    .......
+                    .......
+                    .......   
+                </div>
+           </div> 
+           
+           
+           <div class="sep">&nbsp;</div>  
+             
+            <!-- Copyright -->
+           <div class="copyright center row-fluid"> 
+                .......
+                .......
+                ....... 
+           </div>
+        </footer>
+    
+	&lt;/body&gt;
+    
+    </pre>
+    
+    </section>
+    
+    <section>
+      <h2 class="noMarginBottom">7. Responsive Css</h2>
+      <h3>7.1 Disable Responsive Design</h3>
+      <p>Drive is fully responsive template which mean it can scale from large monitor to small screen devices <span class="highlight">(1200px to 320px)</span>. May be some of you doesn't want reponsive then you can easily disable the responsive layout by simply deleting following code which is present in <span class="highlight">&lt;head&gt;</span> tag.</p>
+      <pre class="brush: css;">
+      &nbsp;
+      	<!-- Search for below code and Delete or Comment it to disable -->
+        
+        <link rel="stylesheet" type="text/css" href="css/responsive-2.css">
+        
+      </pre>
+      
+
+      
+      <h3>7.1 Disable Responsive Design only for Large Monitor</h3>
+      <p>Some of you still may like to use 960gs or 940px centered layout in your site. In that case you can simple disable large monitor reponsive only. Its is very simple. Open responsive.css, search below css code and then delete that code block or add css comments (/* */) to disable it.</p>
+      <pre class="brush: css;">
+      	&nbsp;
+        /****
+         Delete this code Block or Comment it to disable Large Monitor Responsive 
+         ****/ 
+         
+        @media (min-width: 1200px) {
+            .............
+            .............
+            .............
+        }
+        
+      </pre>
+    </section>
+    
+    <section>
+    	<h2>8. Setting up sliders</h2>
+        <p>It is complicated of the template. You don't have change any js or css. Just replace the image. We used 2 sliders.<br>
+		 1.Sequence Slider (Used in home page). <br>
+		 2.FCS Slider (Using in most of the places)</p>
+        <h3>1. Sequence Slider</h3>
+        <p>Sequence is the jQuery slider plugin with infinite style. It provides the complete functionality for a website slider without forcing you to use a set theme. In fact, Sequence has no in-built theme, leaving you complete creative control to build a unique slider using only CSS3 -- no jQuery knowledge required!
+        <a href="https://github.com/IanLunn/Sequence/blob/master/documentation.md">Check this link for more details and learn more about to set your own animation</a> 
+        </p>
+        
+        <p>If you don't know how it works or how to edit, then simply replace images (in img/banners/) with the same size (and if your new images names are different, then change the image name correctly in home pages. After Changed images don't forget update preloader script in footer.   
+        </p>
+        
+        <pre class="brush: js;">
+        &nbsp;
+        var options = {
+				autoPlay: true,
+				nextButton: true,
+				prevButton: true,
+				animateStartingFrameIn: true,
+				autoPlayDelay: 3000,
+				transitionThreshold: 500,
+				preloader: true,
+				preloadTheseFrames: [1],
+                /* Update first li images name &amp; loacation here otherwise slider may not work. */
+				preloadTheseImages: [
+					"img/banners/slide1.png", 
+					"img/banners/slide1-bg.png"
+				]
+			};
+            
+        </pre>
+        
+        <h3>2. fcs Slider</h3>
+        <p>Fcs slider is a jQuery Slider developed by Falcon Creative Stduio (FCS) especially  for this template, you will not find this plugin anywhere in internet. This is a responsive slider and it slide images one by one (its also supports swipe)  which is used in our clients, our team, featured works, other projects sections and so on.</p>
+        <p>How to use this slider? Adding this slider is pretty simple.</p>
+        <pre  class="brush: js;">
+        &nbsp;
+        <!-- To disable simply remove data-autoplay="true" data-duration="8000" -->
+        <section class="fcsCarousel" data-autoplay="true" data-duration="8000"> 
+        <!-- data-duration is autoplay duration in milliseconds -->
+        <!-- You can use ul li or div or an html elements -->
+            <div class="carousel-items-con clients">
+                <div class="clearfix carousel-items">
+                    <div class="carousel-item">
+                    	<!-- You can any html element here -->
+                    </div>
+                    
+                    <div class="carousel-item">
+                    	<!-- You can any html element here -->
+                    </div>
+                    
+                    <div class="carousel-item">
+                    	<!-- You can any html element here -->
+                    </div>
+                </div>
+                
+                <!-- #slide Nav -->
+                <div class="slider-nav">
+                    <a href="#" data-dir="prev" class="slider-btn">&lsaquo;</a>
+                    <a href="#" data-dir="next" class="slider-btn">&rsaquo;</a>
+                </div>    
+            </div>
+        </section>
+        
+        <!-- add this following script to the footer -->
+        <script>
+		(function(){
+			$('.fcsCarousel').fcsCarousel();
+		})();
+		
+		</script>
+        </pre>        
+    </section>
+    
+    <section>
+    	<h2>Columns</h2>
+        <div class="bs-docs-grid">
+            <div class="row-fluid show-grid">
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+              <div class="span1">1</div>
+            </div>
+            <div class="row-fluid show-grid">
+              <div class="span4">4</div>
+              <div class="span4">4</div>
+              <div class="span4">4</div>
+            </div>
+            <div class="row-fluid show-grid">
+              <div class="span4">4</div>
+              <div class="span8">8</div>
+            </div>
+            <div class="row-fluid show-grid">
+              <div class="span6">6</div>
+              <div class="span6">6</div>
+            </div>
+            <div class="row-fluid show-grid">
+              <div class="span12">12</div>
+            </div>
+          </div>
+         <pre class="brush: css;">
+         &nbsp;      	  
+          <div class="row-fluid">
+              <div class="span4">...</div>
+              <div class="span8">...</div>
+           </div>
+           
+         </pre> 
+    </section>
+    
+    <section>
+      <h2>10. Less Files</h2>
+      <p>We created this template using less files. All the less files are in less folder. You don't have upload this in server. Styles.less is file contain all template styles and color.less is the files contains color styles. We also includes all the boostrap less files as well, so you update it easily yourself. To change color you have to edit variable.less and you have to adjust the three variable (@baseColor, @baseColorRGBA , @formFocusColor) to create your own color scheme. </p>
+    </section>
+    
+  <section>
+      <h2>11. Font Awesome</h2>
+      Font Awesome is the iconic font designed for use with Twitter Bootstrap. If you need and simply go to <a href="http://fortawesome.github.com/Font-Awesome/">font awesome website</a> and add icon name as class example below.
+      <pre class="brush: css;">
+      	&nbsp;
+        /****
+         You can add font awesome for any element. You can change color & adjust font size to increase or decrease icon size.
+         ****/
+         
+        <i class="icon-camera-retro"></i> icon-camera-retro 
+        
+        
+       </pre>
+       <h3>11.1. Font Awesome Examples</h3>
+       <h4>11.1.1. Simple icon with name.</h4>
+       <p><i class="icon-fire"></i> icon-fire</p>
+        <pre class="brush: css;">
+        &nbsp;
+        <p><i class="icon-fire"></i> icon-fire</p>
+        </pre>
+        
+        <h4>11.1.2. Icon in Button.</h4>
+        <a href="#" class="btn btn-theme-pri"><i class="icon-heart"></i> Icon Heart in Button</a>
+        <pre class="brush: css;">
+        &nbsp;
+        <p><i class="icon-fire"></i> icon-fire</p>
+        
+        </pre>
+        
+        <h4>11.1.2. Icon in List.</h4>
+        <ul>
+            <li class="icon-pencil">Efficiently plagiarize.</li>
+            <li class="icon-bolt">Monotonectally scale error-free.</li>
+            <li class="icon-bell">Continually provide access.</li>
+            <li class="icon-music">Collaboratively parallel task.</li>
+            <li class="icon-asterisk">Holisticly architect.</li>
+        </ul>
+        <pre class="brush: css;">
+        &nbsp;
+        <ul>
+            <li class="icon-pencil">Efficiently plagiarize.</li>
+            <li class="icon-bolt">Monotonectally scale error-free.</li>
+            <li class="icon-bell">Continually provide access.</li>
+            <li class="icon-music">Collaboratively parallel task.</li>
+            <li class="icon-asterisk">Holisticly architect.</li>
+        </ul>
+        
+        </pre>
+        
+        <h4>11.1.3. Icon like Services Page.</h4>
+        <p>For icon with rounded background like in services pages, you have apply class <span class="highlight">icon50 (50px width &amp; height) or icon80 (80px width &amp; height)</span> to a block level element like p tag. For color background add <span class="highlight">orange</span> class with icon50 or icon80. Inside icon80 or icon50 you have use inline level element like &lt;span&gt; or &lt;i&gt; with font awesome icon class. For left alignment using left or right class with icon50 or icon80. Default is center.</p>
+        <p class="icon50 left"><span class="icon-file"></span></p>
+        <p class="icon50 orange left"><span class="icon-file"></span></p>
+        
+        <p class="icon80 right"><span class="icon-file"></span></p>
+        <p class="icon80 right orange"><span class="icon-file"></span></p>
+        <pre class="brush: css;">
+        &nbsp;
+        <p class="icon50 left"><span class="icon-file"></span></p>
+        <p class="icon50 orange left"><span class="icon-file"></span></p>
+        
+        <p class="icon80 right"><span class="icon-file"></span></p>
+        <p class="icon80 right orange"><span class="icon-file"></span></p>
+        
+        </pre>
+        
+        <p><span  class="highlight">You can do lot more with Font Awesome. We this same method for icon through out the template (excerpt social icons)</span></p>
+    </section>
+    
+    <section>
+      <h2>11. Editing Page Elements &amp; Shortcodes</h2>
+        <h3>11.1. Editing Logo</h3>
+    	<p>You have to edit <span class="highlight">style.css</span> to edit the logo. First upload or save your logo inside img folder. Then open <span class="highlight">style.css</span> from css folder. Search for below code and adjust the value as per instruction below.</p>
+		<pre class="brush: css;">&nbsp;
+/* Search for #pageHeader #logo a then you will find below code*/
+#pageHeader #logo a{
+      font-family: "nexa_500", Tahoma, Geneva, sans-serif;
+      font-size: 36px;
+      color: #333333;
+      text-decoration: none;
+      background: url(../img/logo.png) no-repeat center center;    /* change logo.png name to your logo image name if its different */
+      width: 120px;    /* change your logo width */
+      height: 53px;    /* change your logo height */
+      display: inline-block;
+      text-indent: -1000em; /* if you doesn't have logo then delete this and background: rules. Then your site name will display instood of image */
+}
+            
+    	</pre>
+    
+        <h3>11.2. Editing Navigation</h3>
+    	<p>Navigation Structure</p>
+		<pre class="brush: css;">&nbsp;
+<!-- You need to add id class properly -->
+<nav id="mainNav">
+
+    &lt;ul class="menu"&gt;
+    
+        <!-- All top level navigation must have mainMenu Class -->
+        <li class="mainMenu"><a href="#">page title</a><span class="taline">short description</span></li>
+        <li class="mainMenu"><a href="#">page title</a><span class="taline">short description</span></li>
+        
+        <!-- Level 1 Drop Down Menu: If you plan to drop top menu sould have parent class -->
+        <li class="mainMenu parent"><a href="#">page title</a><span class="taline">Short Description</span>
+            <ul>
+                <li class="arrow"></li>  <!-- this li displays a small arrow at the top of sub menu -->
+                	
+                    [...]
+                    
+                <li class="border"></li> <!-- this li displays bottom border -->
+            </ul>
+        </li>
+            
+            
+        <!-- Level 2 Drop Down Menu: -->
+        <li class="mainMenu parent">
+            <a href="#">page title</a><span class="taline">Short Description</span>
+            
+            <!-- dropdown 1 -->
+            <ul>
+              <li class="arrow"></li>
+              <li><a href="portfolio-col-5.html">Portfolio  <span class="plus">+</span></a>
+              		
+                    <!-- dropdown 2 -->
+                    <ul>
+                        <li class="arrow"></li>
+                        
+                        [...]
+                        
+                        <li class="border"></li>
+                    </ul>
+                    
+              </li>
+              <li class="border"></li>
+            </ul>
+            
+        </li>
+            
+            
+        <li class="mainMenu"><a href="#">page title</a><span class="taline">short description</span></li>
+        <li class="mainMenu"><a href="#">page title</a><span class="taline">short description</span></li>
+  &lt;/ul&gt;
+</nav>    
+   		</pre>
+        
+        <h3>11.3. Twitter Widget</h3>
+    	<p>To update you twitter feed, search for below code above <span class="highlight">&lt;/body&gt;</span> Tag and replace <span class="highlight">your_twitter_username</span> by your twitter username.</p>
+        <pre class="brush: css;">
+        &nbsp;
+        <!-- Replace your_twitter_username by your twitter username-->
+        <script type="text/javascript" src="https://api.twitter.com/1/statuses/user_timeline.json?screen_name=your_twitter_username&amp;callback=twitterCallback2&amp;count=2"></script>
+		
+        </pre>
+        
+        
+        <h3>11.4. Filterable Portfolio Structure</h3>
+        <p>Portfolio Structure as follows:</p>
+        <pre class="brush: css;">
+            &nbsp;
+            <!-- Category Filter -->
+            <div class="group">
+                <ul class="filter clearfix"> 
+                    <li class="current all"><a href="#">All</a></li> 
+                    <li class="webDesign"><a href="#">Web Design</a></li> 
+                    <li class="printdesign"><a href="#">Print Design</a></li> 
+                    <li class="brand"><a href="#">Brand</a></li> 
+                    <li class="wordpress"><a href="#">Wordpress</a></li> 
+                </ul> 
+            </div>
+            <!-- Above li's class must match the data-type attribute below to filter element-->
+            <ul class="portfolio col4 group"> 
+                <li class="span3 item featuredWork" data-id="id-1" data-type="wordpress brand">
+                	[...]
+                </li>
+            </ul>
+        </pre>
+        
+         <h3>11.5. Changing Email address in Contact page</h3>
+         <p>Open Contact Page. You will see your@emailaddress.com in line 2. Please change it to your email address</p>
+         <pre class="brush: css;">
+         &nbsp;
+         <!-- This code found line 2 in contact.php -->
+         $yourEmailAddress = 'your@emailaddress.com'; //Put your own email address here instead of your@emailaddress.com
+         
+         </pre>
+         
+        
+        <h3>11.6. Adding Button</h3>
+    	<p>Creating or adding a button is really simple. First create normal link with <span class="highlight">&lt;a&gt;</span> Tag and class btn and respective button class. Examples as follows.</p>
+        <h5>Button Primary</h5>
+        <p><a href="#" class="btn btn-theme-pri">Button Primary</a></p>
+		<pre class="brush: css;">
+        &nbsp;
+        <p>Button Primary</p>
+        <p><a href="#" class="btn btn-theme-pri">Button Primary</a></p> <!-- you have to apply class="btn btn-theme-pri" to <a> tag -->
+        
+        </pre>
+        
+        <h5>Button Secondary</h5>
+        <p><a href="#" class="btn btn-theme-sec">Button Secondary</a></p>
+		<pre class="brush: css;">
+        &nbsp;
+        <p>Button Secondary</p>
+        <p><a href="#" class="btn btn-theme-sec">>Button Secondary</a></p> <!-- you have to apply class="btn btn-theme-sec" to <a> tag -->
+        
+        </pre>
+        
+        <h5>Bootstraps Default Buttos</h5>
+        <p><a href="#" class="btn">Button Default</a></p>
+        <pre class="brush: css;">
+        &nbsp;
+        <p><a href="#" class="btn">Button Default</a></p>
+        
+        </pre>
+        <p><a href="#" class="btn btn-primary">Button Primary</a></p>
+        <pre class="brush: css;">
+        &nbsp;
+        <p><a href="#" class="btn btn-primary">Button Primary</a></p>
+        
+        </pre>
+        
+        <p><a href="#" class="btn btn-info">Button Info</a></p>
+        <pre class="brush: css;">
+        &nbsp;
+        <p><a href="#" class="btn btn-info">Button Info</a></p>
+        
+        </pre>
+        
+        <p><a href="#" class="btn btn-success">Button Success</a></p>
+         <pre class="brush: css;">
+        &nbsp;
+        <p><a href="#" class="btn btn-success">Button Success</a></p>
+        
+        </pre>
+        
+        
+        <p><a href="#" class="btn btn-warning">Button Warning</a></p>
+         <pre class="brush: css;">
+        &nbsp;
+        <p><a href="#" class="btn btn-warning">Button Warning</a></p>
+        
+        </pre>
+        
+        
+        <p><a href="#" class="btn btn-danger">Button Danger</a></p>
+         <pre class="brush: css;">
+        &nbsp;
+        <p><a href="#" class="btn btn-danger">Button Danger</a></p>
+        
+        </pre>
+        
+        
+        <p><a href="#" class="btn btn-inverse">Button Inverse</a></p>
+		<pre class="brush: css;">
+        &nbsp;
+        <p><a href="#" class="btn btn-inverse">Button Inverse</a></p>        
+        </pre>
+		
+        <h4>11.6.1. Large, Default and Small Button</h4>
+        <p>You have to add some class to make default button to large or small. For large button add <span class="highlight">btn-large</span> class and for small button add <span class="highlight">btn-small</span> class. You can use these classes to any buttons</p>
+        <p><a href="#" class="btn btn-theme-pri btn-large">Large Theme Primary Button</a></p>
+        <p><a href="#" class="btn btn-theme-pri">Default Theme Primary Button</a></p>
+        <p><a href="#" class="btn btn-theme-pri btn-small">Small Theme Primary Button</a></p> 
+		<pre class="brush: css;">
+        &nbsp;
+        <!-- Large -->
+        <p><a href="#" class="btn btn-theme-pri btn-large">Large Theme Primary Button</a></p>
+        
+        <!-- Default -->
+        <p><a href="#" class="btn btn-theme-pri">Default Theme Primary Button</a></p>
+        
+        <!-- Small -->
+        <p><a href="#" class="btn btn-theme-pri btn-small">Small Theme Primary Button</a></p> 
+        
+        </pre>
+        
+        <h4>11.6.2. Adding Icon to the Button</h4>
+        <p>You can easily add icons to the button using font awesome. You have simply add font awesome icon class in <span class="highlight">&lt;i&gt;</span> inside button. Check the example below:</p>
+        <p><a href="#" class="btn btn-theme-pri"><i class="icon-download-alt"></i> Download Now</a></p>
+        <pre class="brush: css;">
+        &nbsp;
+        <p><a href="#" class="btn btn-theme-pri"><i class="icon-download-alt"></i> Download Now</a></p>
+        
+        </pre>
+        
+        <h3>11.7. Hover Effects</h3>
+        <p>We added three hover effects. For all these three has similar html structure. Only you have to change change class name (which is hover-effect1 or hover-effect2 or hover-effects3) to change hover effects.</p>
+        <h4>Hover Effect 1</h4>
+        <!-- Hover Effect Container:: Set 1 -->
+        <div class="hover-effect1 featuredWorks row-fluid">
+            <div class="span4 featuredWork">
+                <!-- Image 1 -->
+                <img src="img/col3/6-2.jpg" alt="" class="displayHidden"> <!-- This must be added, if hover effect not inside fcsSlider. It fixed some issues in mobile version -->
+                <div class="bg">
+                    <div class="content">
+                        <!-- Image Goes Here -->
+                        <div class="front">
+                            <img src="img/col3/6-2.jpg" alt="">
+                        </div>
+                        
+                        <!-- Image Content Goes Here -->
+                        <div class="backCon">
+                            <div class="back">
+                                <div class="header">
+                                    <!-- Title -->
+                                    <h3 class="title">DRIVE THEME <br> ILLUSTRATION</h3>
+                                    <div class="sep"></div>
+                                </div>
+                                <div class="describtion">
+                                    <!-- Category Name or anything you want -->
+                                    <p class="category"><small>on</small> Illustration</p>
+                                    <p><a href="single-portfolio-2.html">click here for more details</a></p> 
+                                    <!-- Single portfolio link or more details link -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <pre class="brush: css;">
+        &nbsp;
+        <!-- Hover Effect Container:: Set 1 -->
+        <div class="hover-effect1 featuredWorks row-fluid"> <!-- Change hover-effect1, hover-effect2 , hover-effects3 -->
+            <div class="span4 featuredWork">
+                <!-- Image 1 -->
+                <img src="img/col3/6-2.jpg" alt="" class="displayHidden"> 
+                <!-- This above image must be added, if hover effect not inside fcsSlider. It fixed some issues in mobile version -->
+                <div class="bg">
+                    <div class="content">
+                        <!-- Image Goes Here -->
+                        <div class="front">
+                            <img src="img/col3/6-2.jpg" alt="">
+                        </div>
+                        
+                        <!-- Image Content Goes Here -->
+                        <div class="backCon">
+                            <div class="back">
+                                <div class="header">
+                                    <!-- Title -->
+                                    <h3 class="title">DRIVE THEME <br> ILLUSTRATION</h3>
+                                    <div class="sep"></div>
+                                </div>
+                                <div class="describtion">
+                                    <!-- Category Name or anything you want -->
+                                    <p class="category"><small>on</small> Illustration</p>
+                                    <!--Single portfolio link or more details link-->
+                                    <p><a href="single-portfolio-2.html">click here for more details</a></p> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </pre>
+        
+        <h4>Hover Effect 2</h4>
+        <!-- Hover Effect Container:: Set 2 -->
+        <div class="hover-effect2 featuredWorks row-fluid">
+            <div class="span4 featuredWork">
+                <!-- Image 1 -->
+                <img src="img/col3/6-2.jpg" alt="" class="displayHidden"> 
+                <!-- This above image must be added, if hover effect not inside fcsSlider. It fixed some issues in mobile version -->
+                <div class="bg">
+                    <div class="content">
+                        <!-- Image Goes Here -->
+                        <div class="front">
+                            <img src="img/col3/6-2.jpg" alt="">
+                        </div>
+                        
+                        <!-- Image Content Goes Here -->
+                        <div class="backCon">
+                            <div class="back">
+                                <div class="header">
+                                    <!-- Title -->
+                                    <h3 class="title">DRIVE THEME <br> ILLUSTRATION</h3>
+                                    <div class="sep"></div>
+                                </div>
+                                <div class="describtion">
+                                    <!-- Category Name or anything you want -->
+                                    <p class="category"><small>on</small> Illustration</p>
+                                    <!--Single portfolio link or more details link-->
+                                    <p><a href="single-portfolio-2.html">click here for more details</a></p> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <pre class="brush: css;">
+        &nbsp;
+        <!-- Hover Effect Container:: Set 2 -->
+        <div class="hover-effect2 featuredWorks row-fluid"> <!-- Change hover-effect1, hover-effect2 , hover-effects3 -->
+            <div class="span4 featuredWork">
+                <!-- Image 1 -->
+                <img src="img/col3/6-2.jpg" alt="" class="displayHidden"> 
+                <!-- This above image  must be added, if hover effect not inside fcsSlider. It fixed some issues in mobile version -->
+                <div class="bg">
+                    <div class="content">
+                        <!-- Image Goes Here -->
+                        <div class="front">
+                            <img src="img/col3/6-2.jpg" alt="">
+                        </div>
+                        
+                        <!-- Image Content Goes Here -->
+                        <div class="backCon">
+                            <div class="back">
+                                <div class="header">
+                                    <!-- Title -->
+                                    <h3 class="title">DRIVE THEME <br> ILLUSTRATION</h3>
+                                    <div class="sep"></div>
+                                </div>
+                                <div class="describtion">
+                                    <!-- Category Name or anything you want -->
+                                    <p class="category"><small>on</small> Illustration</p>
+                                    <!-- Single portfolio link or more details link -->
+                                    <p><a href="single-portfolio-2.html">click here for more details</a></p> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </pre>
+
+        <h4>Hover Effect 3</h4>
+        <!-- Hover Effect Container:: Set 3 -->
+        <div class="hover-effect3 featuredWorks row-fluid">
+            <div class="span4 featuredWork">
+                <!-- Image 1 -->
+                <img src="img/col3/6-2.jpg" alt="" class="displayHidden">
+                <!-- This above image must be added, if hover effect not inside fcsSlider. It fixed some issues in mobile version --> 
+                <div class="bg">
+                    <div class="content">
+                        <!-- Image Goes Here -->
+                        <div class="front">
+                            <img src="img/col3/6-2.jpg" alt="">
+                        </div>
+                        
+                        <!-- Image Content Goes Here -->
+                        <div class="backCon">
+                            <div class="back">
+                                <div class="header">
+                                    <!-- Title -->
+                                    <h3 class="title">DRIVE THEME <br> ILLUSTRATION</h3>
+                                    <div class="sep"></div>
+                                </div>
+                                <div class="describtion">
+                                    <!-- Category Name or anything you want -->
+                                    <p class="category"><small>on</small> Illustration</p>
+                                    <p><a href="single-portfolio-2.html">click here for more details</a></p> <!-- Single portfolio link or more details link -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <pre class="brush: css;">
+        &nbsp;
+        <!-- Hover Effect Container:: Set 1 -->
+        <div class="hover-effect1 featuredWorks row-fluid"> <!-- Change hover-effect1, hover-effect2 , hover-effects3 -->
+            <div class="span4 featuredWork">
+                <!-- Image 1 -->
+                <img src="img/col3/6-2.jpg" alt="" class="displayHidden"> 
+                <!-- This above image must be added, if hover effect not inside fcsSlider. It fixed some issues in mobile version -->
+                <div class="bg">
+                    <div class="content">
+                        <!-- Image Goes Here -->
+                        <div class="front">
+                            <img src="img/col3/6-2.jpg" alt="">
+                        </div>
+                        
+                        <!-- Image Content Goes Here -->
+                        <div class="backCon">
+                            <div class="back">
+                                <div class="header">
+                                    <!-- Title -->
+                                    <h3 class="title">DRIVE THEME <br> ILLUSTRATION</h3>
+                                    <div class="sep"></div>
+                                </div>
+                                <div class="describtion">
+                                    <!-- Category Name or anything you want -->
+                                    <p class="category"><small>on</small> Illustration</p>
+                                    <!-- Single portfolio link or more details link -->
+                                    <p><a href="single-portfolio-2.html">click here for more details</a></p> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </pre>
+
+        
+        <h3>11.8. Progress bars For loading, redirecting, or action status</h3>
+        <p>We designed and coded unique style progress bar and we also keep bootstraps default progress bars.</p>
+        <p>Theme Progress bars</p>
+        <div class="progress-con span6 clear" style="margin-left:0;">
+            <div class="progress">
+            	<div class="bar theme" style="width: 60%;"></div>
+            </div>
+            <p>Web Design - 60%</p>
+        </div>
+        
+        <p class="clear">Default Bootstrap Progress bars</p>
+        <div class="progress-con span6 clear" style="margin-left:0;">
+        <div class="progress progress-striped active">
+          <div class="bar" style="width: 80%;"></div>
+        </div>
+        <p>Web Design - 80%</p>
+        </div>
+        
+        <div class="progress-con span6 clear" style="margin-left:0;">
+            <div class="progress progress-striped">
+              <div class="bar" style="width: 40%;"></div>
+            </div>
+            <p>Web Design - 40%</p>
+        </div>
+        
+        <pre class="brush: css;">
+        &nbsp;
+        <p>Theme Progress bars</p>
+        <div class="progress-con">
+            <div class="progress">
+            	<div class="bar theme" style="width: 60%;"></div>
+            </div>
+            <p>Web Design - 60%</p>
+        </div>
+        
+        <p>Default Bootstrap Progress bars</p>
+        <div class="progress-con">
+        <div class="progress progress-striped active">
+          <div class="bar" style="width: 80%;"></div>
+        </div>
+        <p>Web Design - 80%</p>
+        </div>
+        
+        <div class="progress-con">
+            <div class="progress progress-striped">
+              <div class="bar" style="width: 40%;"></div>
+            </div>
+            <p>Web Design - 40%</p>
+        </div>
+        
+        </pre>
+        
+    </section>
+    
+    <section>
+      <h2>12. Credits</h2>
+      <p>Special thanks below peoples who allow used their images in demo site.</p>
+      <h3>Images By</h3>
+      <ul>
+      	<li>DryIcons - <a href="http://www.flickr.com/photos/dryicons/">http://www.flickr.com/photos/dryicons/</a></li>
+      	<li>John Generalov - <a href="http://www.flickr.com/photos/johny_general/">http://www.flickr.com/photos/johny_general/</a></li>
+      	<li>Kelsey Inkol - <a href="http://www.flickr.com/photos/kelseyinkolphotography/">http://www.flickr.com/photos/kelseyinkolphotography/</a></li>
+      </ul>
+      
+      <h3>Scripts Used</h3>
+      <ul>
+        	<li>Twitter Bootstrap (<a href="http://twitter.github.com/bootstrap/">http://twitter.github.com/bootstrap/</a>)</li>
+            <li>Font Awesome (<a href="http://fortawesome.github.com/Font-Awesome/">http://fortawesome.github.com/Font-Awesome/</a>)</li>
+		    <li>jQuery (<a href="http://www.jquery.com/" target="_blank">http://www.jquery.com/</a>) </li>
+			<li>jQuery-Ui (<a href="http://jqueryui.com/">http://jqueryui.com/</a>)</li>
+            <li>Modernizr (<a href="http://modernizr.com/">http://modernizr.com/</a>)</li>
+            <li>Mobile Menu (<a href="https://github.com/mambows/mobilemenu">https://github.com/mambows/mobilemenu</a>)</li>
+            <li>jQuery Easing v1.3 - <a href="http://gsgd.co.uk/sandbox/jquery/easing/">http://gsgd.co.uk/sandbox/jquery/easing/</a></li>
+            <li>smartresize - <a href="../../../github.com/louisremi/jquery.smartresize.js">https://github.com/louisremi/jquery.smartresize.js</a></li>
+            <li>Sequence Slider (<a href="http://www.sequencejs.com/themes/modern-slide-in/">http://www.sequencejs.com/themes/modern-slide-in/</a>)</li>
+            <li>Quick Sand used in Filterable Portfolio (<a href="http://razorjack.net/quicksand"> http://razorjack.net/quicksand</a>)</li>
+            <li>Fcs Slider (<a href="http://www.falconcreativestudio.com/")>FCS</a></li>
+      </ul>
+    </section>
+    
+    <section>
+      <h2>13. Thank you</h2>
+      <p>Once again, thank you so much for purchasing this theme. As I said at the beginning, I'd be glad to help you if you have any questions about this theme. No guarantees, but I'll do my best to assist. If you have a more general question about the themes on ThemeForest, you might consider visiting the forums and asking your question in the "Item Discussion" section.</p>
+      
+      <p>Please sure your toughts suggestion with us using this contact page. If like to add more feature, feel free to contact us. We will try to do it for you thanks.</p>
+    </section>
+    
+</div>
+
+<footer id="pageFooterCon">   
+    <!-- Copyright -->
+   <div class="copyright center row-fluid"> 
+        <div class="span6">&copy; 2012 <a href="http://www.falconcreativestudio.com/">FalconCreativeStudio.com</a>, All Rights Reservered.</div>
+        <div class="span6"><p class="pull-right"><a href="#"> Help us to improve this theme</a></p></div>
+   </div>
+</footer>
+
+<script type="text/javascript" src="js/syntax.highlighter-2.js"></script>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
+<script src="js/libs/jquery-1.8.2.min-2.js"></script>
+<script src="js/bootstrap.min-2.js"></script>
+<script src="js/plugins-2.js"></script>
+<script src="js/script-2.js"></script>
+</body>
+</html>
