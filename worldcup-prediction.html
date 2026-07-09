@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ทายผลฟุตบอลโลก 2026 — รอบ 8 ทีมสุดท้าย</title>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --dark-red: #3d0a0a;
+    --darker-red: #2a0606;
+    --gold: #f5c542;
+    --gold-light: #ffe9a8;
+    --cream: #fff8ec;
+    --line: #ff6a3d;
+  }
+
+  body {
+    font-family: 'Segoe UI', 'Prompt', 'Sarabun', Tahoma, sans-serif;
+    background: radial-gradient(ellipse at 50% -20%, #7a1616 0%, var(--dark-red) 45%, var(--darker-red) 100%);
+    color: var(--cream);
+    min-height: 100vh;
+    padding: 24px 16px 60px;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; }
+
+  /* ===== Header ===== */
+  header { text-align: center; margin-bottom: 28px; }
+  header h1 {
+    font-size: clamp(1.9rem, 6vw, 3rem);
+    font-weight: 900;
+    background: linear-gradient(180deg, #fffbe6 0%, var(--gold) 60%, #b8860b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+  }
+  header .subtitle {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 26px;
+    font-size: clamp(1rem, 3.5vw, 1.4rem);
+    font-weight: 800;
+    color: #3a2a00;
+    background: linear-gradient(90deg, #d9a520, var(--gold), #d9a520);
+    border-radius: 6px;
+  }
+  .trophy { font-size: clamp(2.6rem, 8vw, 4rem); margin-top: 12px; }
+
+  /* ===== Bracket ===== */
+  .bracket {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 14px;
+    align-items: center;
+    margin-bottom: 36px;
+  }
+  .side { display: flex; flex-direction: column; gap: 18px; }
+  .match {
+    background: rgba(255, 248, 236, 0.96);
+    color: #1a1a1a;
+    border-radius: 10px;
+    padding: 12px 10px;
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.45);
+    border-top: 3px solid var(--line);
+  }
+  .match .round-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #8a1c1c;
+    margin-bottom: 6px;
+  }
+  .match .teams {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 1.05rem;
+  }
+  .match .flag { font-size: 1.6rem; display: block; }
+  .match .vs { color: #b03030; font-size: 0.8rem; font-weight: 900; }
+  .center-col {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 0 4px;
+  }
+  .final-label {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-weight: 900;
+    color: var(--gold);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    white-space: nowrap;
+  }
+  .semi-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: rgba(255,248,236,0.92);
+    color: #6b1212;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
+  /* ===== Form card ===== */
+  .card {
+    background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(245,197,66,0.35);
+    border-radius: 14px;
+    padding: 24px 20px;
+    margin-bottom: 28px;
+    backdrop-filter: blur(4px);
+  }
+  .card h2 {
+    color: var(--gold);
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  label.field-label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--gold-light);
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 1rem;
+    border: 2px solid rgba(245,197,66,0.5);
+    border-radius: 8px;
+    background: var(--cream);
+    color: #1a1a1a;
+    margin-bottom: 20px;
+    outline: none;
+  }
+  input[type="text"]:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(245,197,66,0.25); }
+  input[type="text"]:disabled { opacity: 0.5; }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .team-option { position: relative; }
+  .team-option input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+  .team-option .team-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 6px;
+    background: rgba(255,248,236,0.92);
+    color: #1a1a1a;
+    border: 3px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.12s, border-color 0.12s, box-shadow 0.12s;
+    user-select: none;
+  }
+  .team-option .team-card .flag { font-size: 2rem; line-height: 1; }
+  .team-option .team-card .code { font-weight: 900; font-size: 0.95rem; }
+  .team-option .team-card .name-th { font-size: 0.7rem; color: #555; }
+  .team-option input:checked + .team-card {
+    border-color: var(--gold);
+    background: var(--gold-light);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(245,197,66,0.4);
+  }
+  .team-option .team-card:hover { transform: translateY(-2px); }
+  form.locked .team-option .team-card { opacity: 0.5; pointer-events: none; }
+
+  .btn-submit {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: #3a2a00;
+    background: linear-gradient(90deg, #d9a520, var(--gold), #d9a520);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: filter 0.15s, transform 0.1s;
+  }
+  .btn-submit:hover { filter: brightness(1.1); }
+  .btn-submit:active { transform: scale(0.98); }
+  .btn-submit:disabled { opacity: 0.45; cursor: not-allowed; filter: none; transform: none; }
+
+  .msg { text-align: center; margin-top: 12px; font-weight: 700; min-height: 1.4em; }
+  .msg.ok { color: #8ef58e; }
+  .msg.err { color: #ff9d9d; }
+
+  .locked-banner {
+    display: none;
+    text-align: center;
+    background: rgba(142,245,142,0.12);
+    border: 1px solid rgba(142,245,142,0.5);
+    color: #b9f7b9;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 16px;
+    font-weight: 700;
+  }
+
+  .mode-note {
+    text-align: center;
+    font-size: 0.8rem;
+    margin-bottom: 14px;
+    color: rgba(255,248,236,0.65);
+  }
+  .mode-note.live { color: #8ef58e; }
+
+  /* ===== Results ===== */
+  .list-count {
+    text-align: center; color: var(--gold-light);
+    font-weight: 700; margin-bottom: 14px; min-height: 1.2em;
+  }
+  .stats-bar { margin-bottom: 18px; }
+  .stat-row { margin-bottom: 10px; }
+  .stat-row .stat-head {
+    display: flex; justify-content: space-between;
+    font-size: 0.9rem; font-weight: 700; margin-bottom: 4px;
+  }
+  .stat-track { background: rgba(255,255,255,0.12); border-radius: 20px; height: 14px; overflow: hidden; }
+  .stat-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #d9a520, var(--gold));
+    border-radius: 20px;
+    transition: width 0.5s ease;
+    min-width: 0;
+  }
+
+  ul.prediction-list { list-style: none; }
+  ul.prediction-list li {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    background: rgba(255,248,236,0.94);
+    color: #1a1a1a;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+  }
+  ul.prediction-list .num {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 24px; height: 24px;
+    background: var(--gold); color: #3a2a00;
+    border-radius: 50%; font-size: 0.8rem; font-weight: 900;
+    flex-shrink: 0;
+  }
+  ul.prediction-list .who { font-weight: 800; flex: 1; min-width: 90px; }
+  ul.prediction-list .pick { font-size: 0.9rem; color: #6b1212; font-weight: 700; }
+  .empty-note { text-align: center; color: rgba(255,248,236,0.6); padding: 12px; }
+
+  footer { text-align: center; margin-top: 30px; font-size: 0.8rem; color: rgba(255,248,236,0.5); }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 640px) {
+    .bracket { grid-template-columns: 1fr; }
+    .center-col { order: -1; }
+    .team-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>ฟุตบอลโลก 2026</h1>
+    <div class="subtitle">ทายผล รอบ 8 ทีมสุดท้าย 🏆</div>
+    <div class="trophy">🏆</div>
+  </header>
+
+  <!-- Bracket -->
+  <section class="bracket" aria-label="สายการแข่งขัน">
+    <div class="side">
+      <div class="match">
+        <div class="round-label">รอบก่อนรองชนะเลิศ</div>
+        <div class="teams">
+          <span><span class="flag">🇫🇷</span>FRA</span>
+          <span class="vs">VS</span>
+          <span><span class="flag">🇲🇦</span>MAR</span>
+        </div>
+      </div>
+      <div class="match">
+        <div class="round-label">รอบก่อนรองชนะเลิศ</div>
+        <div class="teams">
+          <span><span class="flag">🇪🇸</span>SPA</span>
+          <span class="vs">VS</span>
+          <span><span class="flag">🇧🇪</span>BEL</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="center-col">
+      <div class="semi-label">รอบรองชนะเลิศ</div>
+      <div class="final-label">รอบชิงชนะเลิศ</div>
+      <div class="semi-label">รอบรองชนะเลิศ</div>
+    </div>
+
+    <div class="side">
+      <div class="match">
+        <div class="round-label">รอบก่อนรองชนะเลิศ</div>
+        <div class="teams">
+          <span><span class="flag">🇳🇴</span>NOR</span>
+          <span class="vs">VS</span>
+          <span><span class="flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>ENG</span>
+        </div>
+      </div>
+      <div class="match">
+        <div class="round-label">รอบก่อนรองชนะเลิศ</div>
+        <div class="teams">
+          <span><span class="flag">🇦🇷</span>ARG</span>
+          <span class="vs">VS</span>
+          <span><span class="flag">🇨🇭</span>SUI</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prediction form -->
+  <section class="card">
+    <h2>✍️ ทายทีมแชมป์โลก 2026</h2>
+    <div class="locked-banner" id="lockedBanner"></div>
+    <form id="predictForm">
+      <label class="field-label" for="playerName">ชื่อของคุณ</label>
+      <input type="text" id="playerName" placeholder="กรอกชื่อเล่นของคุณ..." maxlength="30" autocomplete="off">
+
+      <label class="field-label">เลือกทีมที่คิดว่าจะได้แชมป์โลก (โหวตได้คนละ 1 ครั้ง แก้ไม่ได้นะ!)</label>
+      <div class="team-grid" id="teamGrid">
+        <label class="team-option">
+          <input type="radio" name="champion" value="FRA">
+          <span class="team-card"><span class="flag">🇫🇷</span><span class="code">FRA</span><span class="name-th">ฝรั่งเศส</span></span>
+        </label>
+        <label class="team-option">
+          <input type="radio" name="champion" value="MAR">
+          <span class="team-card"><span class="flag">🇲🇦</span><span class="code">MAR</span><span class="name-th">โมร็อกโก</span></span>
+        </label>
+        <label class="team-option">
+          <input type="radio" name="champion" value="SPA">
+          <span class="team-card"><span class="flag">🇪🇸</span><span class="code">SPA</span><span class="name-th">สเปน</span></span>
+        </label>
+        <label class="team-option">
+          <input type="radio" name="champion" value="BEL">
+          <span class="team-card"><span class="flag">🇧🇪</span><span class="code">BEL</span><span class="name-th">เบลเยียม</span></span>
+        </label>
+        <label class="team-option">
+          <input type="radio" name="champion" value="NOR">
+          <span class="team-card"><span class="flag">🇳🇴</span><span class="code">NOR</span><span class="name-th">นอร์เวย์</span></span>
+        </label>
+        <label class="team-option">
+          <input type="radio" name="champion" value="ENG">
+          <span class="team-card"><span class="flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="code">ENG</span><span class="name-th">อังกฤษ</span></span>
+        </label>
+        <label class="team-option">
+          <input type="radio" name="champion" value="ARG">
+          <span class="team-card"><span class="flag">🇦🇷</span><span class="code">ARG</span><span class="name-th">อาร์เจนตินา</span></span>
+        </label>
+        <label class="team-option">
+          <input type="radio" name="champion" value="SUI">
+          <span class="team-card"><span class="flag">🇨🇭</span><span class="code">SUI</span><span class="name-th">สวิตเซอร์แลนด์</span></span>
+        </label>
+      </div>
+
+      <button type="button" id="submitBtn" class="btn-submit">🎯 ส่งคำทาย</button>
+      <div class="msg" id="msg"></div>
+    </form>
+  </section>
+
+  <!-- Results -->
+  <section class="card">
+    <h2>📊 ผลโหวตจากเพื่อนๆ</h2>
+    <div class="mode-note" id="modeNote"></div>
+    <div class="list-count" id="listCount"></div>
+    <div class="stats-bar" id="statsBar"></div>
+    <ul class="prediction-list" id="predictionList"></ul>
+    <div class="empty-note" id="emptyNote">ยังไม่มีใครทายเลย มาเป็นคนแรกกัน! 🙌</div>
+  </section>
+
+  <footer>ทายผลกันสนุกๆ กับเพื่อนๆ ⚽</footer>
+</div>
+
+<script>
+  var TEAMS = [
+    { code: 'FRA', flag: '🇫🇷', nameTh: 'ฝรั่งเศส' },
+    { code: 'MAR', flag: '🇲🇦', nameTh: 'โมร็อกโก' },
+    { code: 'SPA', flag: '🇪🇸', nameTh: 'สเปน' },
+    { code: 'BEL', flag: '🇧🇪', nameTh: 'เบลเยียม' },
+    { code: 'NOR', flag: '🇳🇴', nameTh: 'นอร์เวย์' },
+    { code: 'ENG', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', nameTh: 'อังกฤษ' },
+    { code: 'ARG', flag: '🇦🇷', nameTh: 'อาร์เจนตินา' },
+    { code: 'SUI', flag: '🇨🇭', nameTh: 'สวิตเซอร์แลนด์' }
+  ];
+  var STORAGE_KEY = 'wc2026-predictions';
+  var VOTED_KEY = 'wc2026-voted-name';
+
+  // ===== วาง Firebase config ตรงนี้เพื่อเปิดโหมดผลโหวตรวม =====
+  // ตัวอย่าง:
+  // var FIREBASE_CONFIG = {
+  //   apiKey: "AIza....",
+  //   databaseURL: "https://xxxx-default-rtdb.asia-southeast1.firebasedatabase.app",
+  //   projectId: "xxxx"
+  // };
+  var FIREBASE_CONFIG = {
+    databaseURL: "https://football2026-8e034-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "football2026-8e034"
+  };
+
+  var form = document.getElementById('predictForm');
+  var msg = document.getElementById('msg');
+  var listEl = document.getElementById('predictionList');
+  var listCount = document.getElementById('listCount');
+  var statsBar = document.getElementById('statsBar');
+  var emptyNote = document.getElementById('emptyNote');
+  var modeNote = document.getElementById('modeNote');
+  var lockedBanner = document.getElementById('lockedBanner');
+  var submitBtn = document.getElementById('submitBtn');
+  var nameInput = document.getElementById('playerName');
+
+  // ===== Shared mode (Firebase) with local fallback =====
+  var votesRef = null;
+  if (FIREBASE_CONFIG && typeof firebase !== 'undefined') {
+    try {
+      firebase.initializeApp(FIREBASE_CONFIG);
+      votesRef = firebase.database().ref('votes');
+    } catch (e) { votesRef = null; }
+  }
+  var sharedMode = !!votesRef;
+  modeNote.textContent = sharedMode
+    ? '🌐 ผลโหวตรวมจากทุกคน อัปเดตแบบเรียลไทม์'
+    : '📱 โหมดเครื่องนี้เท่านั้น (ยังไม่ได้เชื่อมต่อฐานข้อมูลกลาง)';
+  if (sharedMode) modeNote.className = 'mode-note live';
+
+  // localStorage may be blocked (e.g. sandboxed preview) — fall back to
+  // in-memory storage so voting still works, just without persistence.
+  var memoryStore = {};
+  var canPersist = (function () {
+    try {
+      localStorage.setItem('__wc_test', '1');
+      localStorage.removeItem('__wc_test');
+      return true;
+    } catch (e) { return false; }
+  })();
+
+  function localGet(key) {
+    if (!canPersist) return memoryStore[key] || null;
+    try { return localStorage.getItem(key); } catch (e) { return null; }
+  }
+  function localSet(key, val) {
+    if (!canPersist) { memoryStore[key] = val; return; }
+    try { localStorage.setItem(key, val); } catch (e) {}
+  }
+
+  // Firebase keys ห้ามมี . # $ [ ] / — ตัดออกและ normalize ชื่อกันโหวตซ้ำ
+  function nameKeyOf(name) {
+    return name.trim().toLowerCase().replace(/[.#$\[\]\/]/g, '').replace(/\s+/g, ' ');
+  }
+  function teamByCode(code) {
+    for (var i = 0; i < TEAMS.length; i++) if (TEAMS[i].code === code) return TEAMS[i];
+    return null;
+  }
+  function escapeHtml(s) {
+    var div = document.createElement('div');
+    div.textContent = s;
+    return div.innerHTML;
+  }
+
+  function loadLocalVotes() {
+    try { return JSON.parse(localGet(STORAGE_KEY)) || {}; } catch (e) { return {}; }
+  }
+  function saveLocalVotes(obj) {
+    localSet(STORAGE_KEY, JSON.stringify(obj));
+  }
+
+  function render(votesObj) {
+    var preds = [];
+    for (var k in votesObj) {
+      if (votesObj[k] && votesObj[k].team) preds.push(votesObj[k]);
+    }
+    preds.sort(function (a, b) { return (a.at || 0) - (b.at || 0); });
+
+    listEl.innerHTML = '';
+    emptyNote.style.display = preds.length ? 'none' : 'block';
+    listCount.textContent = preds.length ? 'ผู้ร่วมทายทั้งหมด ' + preds.length + ' คน' : '';
+    preds.forEach(function (p, idx) {
+      var t = teamByCode(p.team);
+      if (!t) return;
+      var li = document.createElement('li');
+      li.innerHTML =
+        '<span class="num">' + (idx + 1) + '</span>' +
+        '<span class="who">👤 ' + escapeHtml(p.name) + '</span>' +
+        '<span class="pick">' + t.flag + ' แชมป์: <strong>' + t.nameTh + '</strong> (' + t.code + ')</span>';
+      listEl.appendChild(li);
+    });
+
+    statsBar.innerHTML = '';
+    if (preds.length) {
+      var counts = {};
+      preds.forEach(function (p) { counts[p.team] = (counts[p.team] || 0) + 1; });
+      TEAMS.filter(function (t) { return counts[t.code]; })
+        .sort(function (a, b) { return counts[b.code] - counts[a.code]; })
+        .forEach(function (t) {
+          var n = counts[t.code];
+          var pct = Math.round(n / preds.length * 100);
+          var row = document.createElement('div');
+          row.className = 'stat-row';
+          row.innerHTML =
+            '<div class="stat-head"><span>' + t.flag + ' ' + t.nameTh + '</span>' +
+            '<span>' + n + ' คน (' + pct + '%)</span></div>' +
+            '<div class="stat-track"><div class="stat-fill" style="width:' + pct + '%"></div></div>';
+          statsBar.appendChild(row);
+        });
+    }
+  }
+
+  function lockForm(name) {
+    form.classList.add('locked');
+    nameInput.disabled = true;
+    submitBtn.disabled = true;
+    var radios = form.querySelectorAll('input[name="champion"]');
+    for (var i = 0; i < radios.length; i++) radios[i].disabled = true;
+    lockedBanner.style.display = 'block';
+    lockedBanner.textContent = '✅ คุณโหวตในชื่อ "' + name + '" ไปแล้ว ขอบคุณที่ร่วมสนุก!';
+  }
+
+  function showMsg(text, ok) {
+    msg.textContent = text;
+    msg.className = 'msg ' + (ok ? 'ok' : 'err');
+    setTimeout(function () { msg.textContent = ''; }, 5000);
+  }
+
+  function onVoteSaved(name) {
+    localSet(VOTED_KEY, name);
+    lockForm(name);
+    showMsg('บันทึกคำทายเรียบร้อย ขอให้ดวงดี! 🍀', true);
+  }
+
+  // Bound to button click (not form submit) because sandboxed previews
+  // block form submission entirely, which would swallow the event.
+  function submitPrediction() {
+    var name = nameInput.value.trim();
+    var picked = form.querySelector('input[name="champion"]:checked');
+
+    if (!name) { showMsg('กรุณากรอกชื่อก่อนนะ 😊', false); return; }
+    if (!picked) { showMsg('อย่าลืมเลือกทีมแชมป์ด้วยนะ ⚽', false); return; }
+
+    var key = nameKeyOf(name);
+    if (!key) { showMsg('ชื่อนี้ใช้ไม่ได้ ลองชื่ออื่นนะ', false); return; }
+    var team = picked.value;
+
+    if (sharedMode) {
+      submitBtn.disabled = true;
+      votesRef.child(key).once('value').then(function (snap) {
+        if (snap.exists()) {
+          submitBtn.disabled = false;
+          showMsg('ชื่อ "' + name + '" ถูกใช้โหวตไปแล้ว ลองใช้ชื่ออื่น 😅', false);
+          return;
+        }
+        return votesRef.child(key).set({
+          name: name,
+          team: team,
+          at: firebase.database.ServerValue.TIMESTAMP
+        }).then(function () {
+          onVoteSaved(name);
+        }).catch(function () {
+          submitBtn.disabled = false;
+          showMsg('ชื่อ "' + name + '" ถูกใช้โหวตไปแล้ว ลองใช้ชื่ออื่น 😅', false);
+        });
+      }).catch(function () {
+        submitBtn.disabled = false;
+        showMsg('เชื่อมต่อฐานข้อมูลไม่ได้ ลองใหม่อีกครั้งนะ 🙏', false);
+      });
+    } else {
+      var votes = loadLocalVotes();
+      if (votes[key]) {
+        showMsg('ชื่อ "' + name + '" ถูกใช้โหวตไปแล้ว ลองใช้ชื่ออื่น 😅', false);
+        return;
+      }
+      votes[key] = { name: name, team: team, at: Date.now() };
+      saveLocalVotes(votes);
+      onVoteSaved(name);
+      render(votes);
+    }
+  }
+
+  document.getElementById('submitBtn').addEventListener('click', submitPrediction);
+  form.addEventListener('submit', function (e) { e.preventDefault(); submitPrediction(); });
+
+  // หนึ่งเครื่องโหวตได้ครั้งเดียว
+  var votedName = localGet(VOTED_KEY);
+  if (votedName) lockForm(votedName);
+
+  if (sharedMode) {
+    votesRef.on('value', function (snap) {
+      render(snap.val() || {});
+    }, function () {
+      modeNote.textContent = '⚠️ เชื่อมต่อฐานข้อมูลไม่ได้ (ตรวจ Rules ว่าเปิดอ่านแล้ว)';
+      modeNote.className = 'mode-note';
+    });
+  } else {
+    render(loadLocalVotes());
+  }
+</script>
+</body>
+</html>
