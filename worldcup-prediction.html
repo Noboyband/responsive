@@ -214,16 +214,27 @@
   ul.prediction-list li {
     display: flex;
     align-items: center;
-    gap: 12px;
+    flex-wrap: wrap;
+    gap: 8px 12px;
     background: rgba(255,248,236,0.94);
     color: #1a1a1a;
     border-radius: 8px;
     padding: 10px 14px;
     margin-bottom: 8px;
   }
-  ul.prediction-list .flag { font-size: 1.5rem; }
-  ul.prediction-list .who { font-weight: 800; flex: 1; }
-  ul.prediction-list .pick { font-size: 0.85rem; color: #6b1212; font-weight: 700; }
+  ul.prediction-list .num {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 24px; height: 24px;
+    background: var(--gold); color: #3a2a00;
+    border-radius: 50%; font-size: 0.8rem; font-weight: 900;
+    flex-shrink: 0;
+  }
+  ul.prediction-list .who { font-weight: 800; flex: 1; min-width: 90px; }
+  ul.prediction-list .pick { font-size: 0.9rem; color: #6b1212; font-weight: 700; }
+  .list-count {
+    text-align: center; color: var(--gold-light);
+    font-weight: 700; margin-bottom: 14px; min-height: 1.2em;
+  }
   ul.prediction-list .del {
     background: none; border: none; cursor: pointer;
     color: #b03030; font-size: 1rem; font-weight: 900;
@@ -340,7 +351,7 @@
         </label>
       </div>
 
-      <button type="submit" class="btn-submit">🎯 ส่งคำทาย</button>
+      <button type="button" id="submitBtn" class="btn-submit">🎯 ส่งคำทาย</button>
       <div class="msg" id="msg"></div>
     </form>
   </section>
@@ -348,6 +359,7 @@
   <!-- Results -->
   <section class="card">
     <h2>📊 ผลโหวตจากเพื่อนๆ</h2>
+    <div class="list-count" id="listCount"></div>
     <div class="stats-bar" id="statsBar"></div>
     <ul class="prediction-list" id="predictionList"></ul>
     <div class="empty-note" id="emptyNote">ยังไม่มีใครทายเลย มาเป็นคนแรกกัน! 🙌</div>
@@ -372,15 +384,29 @@
   var form = document.getElementById('predictForm');
   var msg = document.getElementById('msg');
   var listEl = document.getElementById('predictionList');
+  var listCount = document.getElementById('listCount');
   var statsBar = document.getElementById('statsBar');
   var emptyNote = document.getElementById('emptyNote');
 
+  // localStorage may be blocked (e.g. sandboxed preview) — fall back to
+  // in-memory storage so voting still works, just without persistence.
+  var memoryStore = [];
+  var canPersist = (function () {
+    try {
+      localStorage.setItem('__wc_test', '1');
+      localStorage.removeItem('__wc_test');
+      return true;
+    } catch (e) { return false; }
+  })();
+
   function loadPredictions() {
+    if (!canPersist) return memoryStore;
     try {
       return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
     } catch (e) { return []; }
   }
   function savePredictions(list) {
+    if (!canPersist) { memoryStore = list; return; }
     localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
   }
   function teamByCode(code) {
@@ -399,14 +425,15 @@
     // list
     listEl.innerHTML = '';
     emptyNote.style.display = preds.length ? 'none' : 'block';
+    listCount.textContent = preds.length ? 'ผู้ร่วมทายทั้งหมด ' + preds.length + ' คน' : '';
     preds.forEach(function (p, idx) {
       var t = teamByCode(p.team);
       if (!t) return;
       var li = document.createElement('li');
       li.innerHTML =
-        '<span class="flag">' + t.flag + '</span>' +
-        '<span class="who">' + escapeHtml(p.name) + '</span>' +
-        '<span class="pick">ทาย ' + t.nameTh + ' (' + t.code + ')</span>' +
+        '<span class="num">' + (idx + 1) + '</span>' +
+        '<span class="who">👤 ' + escapeHtml(p.name) + '</span>' +
+        '<span class="pick">' + t.flag + ' แชมป์: <strong>' + t.nameTh + '</strong> (' + t.code + ')</span>' +
         '<button class="del" title="ลบ" data-idx="' + idx + '">✕</button>';
       listEl.appendChild(li);
     });
@@ -432,8 +459,9 @@
     }
   }
 
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
+  // Bound to button click (not form submit) because sandboxed previews
+  // block form submission entirely, which would swallow the event.
+  function submitPrediction() {
     var name = document.getElementById('playerName').value.trim();
     var picked = form.querySelector('input[name="champion"]:checked');
 
@@ -454,17 +482,21 @@
     savePredictions(preds);
     form.reset();
     render();
-  });
+  }
+
+  document.getElementById('submitBtn').addEventListener('click', submitPrediction);
+  form.addEventListener('submit', function (e) { e.preventDefault(); submitPrediction(); });
 
   listEl.addEventListener('click', function (e) {
     var btn = e.target.closest('.del');
     if (!btn) return;
     var preds = loadPredictions();
     var p = preds[+btn.dataset.idx];
-    if (p && confirm('ลบคำทายของ "' + p.name + '" ใช่ไหม?')) {
+    if (p) {
       preds.splice(+btn.dataset.idx, 1);
       savePredictions(preds);
       render();
+      showMsg('ลบคำทายของ "' + p.name + '" แล้ว', true);
     }
   });
 
