@@ -305,7 +305,40 @@
       <input type="text" id="playerName" placeholder="กรอกชื่อเล่นของคุณ..." maxlength="30" autocomplete="off">
 
       <label class="field-label">เลือกทีมที่คิดว่าจะได้แชมป์โลก</label>
-      <div class="team-grid" id="teamGrid"></div>
+      <div class="team-grid" id="teamGrid">
+        <label class="team-option">
+          <input type="radio" name="champion" value="FRA">
+          <span class="team-card"><span class="flag">🇫🇷</span><span class="code">FRA</span><span class="name-th">ฝรั่งเศส</span></span>
+        </label>
+        <label class="team-option">
+          <input type="radio" name="champion" value="MAR">
+          <span class="team-card"><span class="flag">🇲🇦</span><span class="code">MAR</span><span class="name-th">โมร็อกโก</span></span>
+        </label>
+        <label class="team-option">
+          <input type="radio" name="champion" value="SPA">
+          <span class="team-card"><span class="flag">🇪🇸</span><span class="code">SPA</span><span class="name-th">สเปน</span></span>
+        </label>
+        <label class="team-option">
+          <input type="radio" name="champion" value="BEL">
+          <span class="team-card"><span class="flag">🇧🇪</span><span class="code">BEL</span><span class="name-th">เบลเยียม</span></span>
+        </label>
+        <label class="team-option">
+          <input type="radio" name="champion" value="NOR">
+          <span class="team-card"><span class="flag">🇳🇴</span><span class="code">NOR</span><span class="name-th">นอร์เวย์</span></span>
+        </label>
+        <label class="team-option">
+          <input type="radio" name="champion" value="ENG">
+          <span class="team-card"><span class="flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="code">ENG</span><span class="name-th">อังกฤษ</span></span>
+        </label>
+        <label class="team-option">
+          <input type="radio" name="champion" value="ARG">
+          <span class="team-card"><span class="flag">🇦🇷</span><span class="code">ARG</span><span class="name-th">อาร์เจนตินา</span></span>
+        </label>
+        <label class="team-option">
+          <input type="radio" name="champion" value="SUI">
+          <span class="team-card"><span class="flag">🇨🇭</span><span class="code">SUI</span><span class="name-th">สวิตเซอร์แลนด์</span></span>
+        </label>
+      </div>
 
       <button type="submit" class="btn-submit">🎯 ส่งคำทาย</button>
       <div class="msg" id="msg"></div>
@@ -336,26 +369,11 @@
   ];
   var STORAGE_KEY = 'wc2026-predictions';
 
-  var teamGrid = document.getElementById('teamGrid');
   var form = document.getElementById('predictForm');
   var msg = document.getElementById('msg');
   var listEl = document.getElementById('predictionList');
   var statsBar = document.getElementById('statsBar');
   var emptyNote = document.getElementById('emptyNote');
-
-  // Build team choices
-  TEAMS.forEach(function (t) {
-    var label = document.createElement('label');
-    label.className = 'team-option';
-    label.innerHTML =
-      '<input type="radio" name="champion" value="' + t.code + '">' +
-      '<span class="team-card">' +
-        '<span class="flag">' + t.flag + '</span>' +
-        '<span class="code">' + t.code + '</span>' +
-        '<span class="name-th">' + t.nameTh + '</span>' +
-      '</span>';
-    teamGrid.appendChild(label);
-  });
 
   function loadPredictions() {
     try {
