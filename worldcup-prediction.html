@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ทายผลฟุตบอลโลก 2026 — รอบ 8 ทีมสุดท้าย</title>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -140,6 +142,7 @@
     outline: none;
   }
   input[type="text"]:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(245,197,66,0.25); }
+  input[type="text"]:disabled { opacity: 0.5; }
 
   .team-grid {
     display: grid;
@@ -173,6 +176,7 @@
     box-shadow: 0 6px 16px rgba(245,197,66,0.4);
   }
   .team-option .team-card:hover { transform: translateY(-2px); }
+  form.locked .team-option .team-card { opacity: 0.5; pointer-events: none; }
 
   .btn-submit {
     display: block;
@@ -189,12 +193,37 @@
   }
   .btn-submit:hover { filter: brightness(1.1); }
   .btn-submit:active { transform: scale(0.98); }
+  .btn-submit:disabled { opacity: 0.45; cursor: not-allowed; filter: none; transform: none; }
 
   .msg { text-align: center; margin-top: 12px; font-weight: 700; min-height: 1.4em; }
   .msg.ok { color: #8ef58e; }
   .msg.err { color: #ff9d9d; }
 
+  .locked-banner {
+    display: none;
+    text-align: center;
+    background: rgba(142,245,142,0.12);
+    border: 1px solid rgba(142,245,142,0.5);
+    color: #b9f7b9;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 16px;
+    font-weight: 700;
+  }
+
+  .mode-note {
+    text-align: center;
+    font-size: 0.8rem;
+    margin-bottom: 14px;
+    color: rgba(255,248,236,0.65);
+  }
+  .mode-note.live { color: #8ef58e; }
+
   /* ===== Results ===== */
+  .list-count {
+    text-align: center; color: var(--gold-light);
+    font-weight: 700; margin-bottom: 14px; min-height: 1.2em;
+  }
   .stats-bar { margin-bottom: 18px; }
   .stat-row { margin-bottom: 10px; }
   .stat-row .stat-head {
@@ -231,15 +260,6 @@
   }
   ul.prediction-list .who { font-weight: 800; flex: 1; min-width: 90px; }
   ul.prediction-list .pick { font-size: 0.9rem; color: #6b1212; font-weight: 700; }
-  .list-count {
-    text-align: center; color: var(--gold-light);
-    font-weight: 700; margin-bottom: 14px; min-height: 1.2em;
-  }
-  ul.prediction-list .del {
-    background: none; border: none; cursor: pointer;
-    color: #b03030; font-size: 1rem; font-weight: 900;
-    padding: 4px 8px;
-  }
   .empty-note { text-align: center; color: rgba(255,248,236,0.6); padding: 12px; }
 
   footer { text-align: center; margin-top: 30px; font-size: 0.8rem; color: rgba(255,248,236,0.5); }
@@ -311,11 +331,12 @@
   <!-- Prediction form -->
   <section class="card">
     <h2>✍️ ทายทีมแชมป์โลก 2026</h2>
+    <div class="locked-banner" id="lockedBanner"></div>
     <form id="predictForm">
       <label class="field-label" for="playerName">ชื่อของคุณ</label>
       <input type="text" id="playerName" placeholder="กรอกชื่อเล่นของคุณ..." maxlength="30" autocomplete="off">
 
-      <label class="field-label">เลือกทีมที่คิดว่าจะได้แชมป์โลก</label>
+      <label class="field-label">เลือกทีมที่คิดว่าจะได้แชมป์โลก (โหวตได้คนละ 1 ครั้ง แก้ไม่ได้นะ!)</label>
       <div class="team-grid" id="teamGrid">
         <label class="team-option">
           <input type="radio" name="champion" value="FRA">
@@ -359,13 +380,14 @@
   <!-- Results -->
   <section class="card">
     <h2>📊 ผลโหวตจากเพื่อนๆ</h2>
+    <div class="mode-note" id="modeNote"></div>
     <div class="list-count" id="listCount"></div>
     <div class="stats-bar" id="statsBar"></div>
     <ul class="prediction-list" id="predictionList"></ul>
     <div class="empty-note" id="emptyNote">ยังไม่มีใครทายเลย มาเป็นคนแรกกัน! 🙌</div>
   </section>
 
-  <footer>ทายผลกันสนุกๆ กับเพื่อนๆ ⚽ ข้อมูลบันทึกไว้ในเครื่องนี้ (localStorage)</footer>
+  <footer>ทายผลกันสนุกๆ กับเพื่อนๆ ⚽</footer>
 </div>
 
 <script>
@@ -380,6 +402,16 @@
     { code: 'SUI', flag: '🇨🇭', nameTh: 'สวิตเซอร์แลนด์' }
   ];
   var STORAGE_KEY = 'wc2026-predictions';
+  var VOTED_KEY = 'wc2026-voted-name';
+
+  // ===== วาง Firebase config ตรงนี้เพื่อเปิดโหมดผลโหวตรวม =====
+  // ตัวอย่าง:
+  // var FIREBASE_CONFIG = {
+  //   apiKey: "AIza....",
+  //   databaseURL: "https://xxxx-default-rtdb.asia-southeast1.firebasedatabase.app",
+  //   projectId: "xxxx"
+  // };
+  var FIREBASE_CONFIG = null;
 
   var form = document.getElementById('predictForm');
   var msg = document.getElementById('msg');
@@ -387,10 +419,28 @@
   var listCount = document.getElementById('listCount');
   var statsBar = document.getElementById('statsBar');
   var emptyNote = document.getElementById('emptyNote');
+  var modeNote = document.getElementById('modeNote');
+  var lockedBanner = document.getElementById('lockedBanner');
+  var submitBtn = document.getElementById('submitBtn');
+  var nameInput = document.getElementById('playerName');
+
+  // ===== Shared mode (Firebase) with local fallback =====
+  var votesRef = null;
+  if (FIREBASE_CONFIG && typeof firebase !== 'undefined') {
+    try {
+      firebase.initializeApp(FIREBASE_CONFIG);
+      votesRef = firebase.database().ref('votes');
+    } catch (e) { votesRef = null; }
+  }
+  var sharedMode = !!votesRef;
+  modeNote.textContent = sharedMode
+    ? '🌐 ผลโหวตรวมจากทุกคน อัปเดตแบบเรียลไทม์'
+    : '📱 โหมดเครื่องนี้เท่านั้น (ยังไม่ได้เชื่อมต่อฐานข้อมูลกลาง)';
+  if (sharedMode) modeNote.className = 'mode-note live';
 
   // localStorage may be blocked (e.g. sandboxed preview) — fall back to
   // in-memory storage so voting still works, just without persistence.
-  var memoryStore = [];
+  var memoryStore = {};
   var canPersist = (function () {
     try {
       localStorage.setItem('__wc_test', '1');
@@ -399,15 +449,18 @@
     } catch (e) { return false; }
   })();
 
-  function loadPredictions() {
-    if (!canPersist) return memoryStore;
-    try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-    } catch (e) { return []; }
+  function localGet(key) {
+    if (!canPersist) return memoryStore[key] || null;
+    try { return localStorage.getItem(key); } catch (e) { return null; }
   }
-  function savePredictions(list) {
-    if (!canPersist) { memoryStore = list; return; }
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+  function localSet(key, val) {
+    if (!canPersist) { memoryStore[key] = val; return; }
+    try { localStorage.setItem(key, val); } catch (e) {}
+  }
+
+  // Firebase keys ห้ามมี . # $ [ ] / — ตัดออกและ normalize ชื่อกันโหวตซ้ำ
+  function nameKeyOf(name) {
+    return name.trim().toLowerCase().replace(/[.#$\[\]\/]/g, '').replace(/\s+/g, ' ');
   }
   function teamByCode(code) {
     for (var i = 0; i < TEAMS.length; i++) if (TEAMS[i].code === code) return TEAMS[i];
@@ -419,10 +472,20 @@
     return div.innerHTML;
   }
 
-  function render() {
-    var preds = loadPredictions();
+  function loadLocalVotes() {
+    try { return JSON.parse(localGet(STORAGE_KEY)) || {}; } catch (e) { return {}; }
+  }
+  function saveLocalVotes(obj) {
+    localSet(STORAGE_KEY, JSON.stringify(obj));
+  }
 
-    // list
+  function render(votesObj) {
+    var preds = [];
+    for (var k in votesObj) {
+      if (votesObj[k] && votesObj[k].team) preds.push(votesObj[k]);
+    }
+    preds.sort(function (a, b) { return (a.at || 0) - (b.at || 0); });
+
     listEl.innerHTML = '';
     emptyNote.style.display = preds.length ? 'none' : 'block';
     listCount.textContent = preds.length ? 'ผู้ร่วมทายทั้งหมด ' + preds.length + ' คน' : '';
@@ -433,12 +496,10 @@
       li.innerHTML =
         '<span class="num">' + (idx + 1) + '</span>' +
         '<span class="who">👤 ' + escapeHtml(p.name) + '</span>' +
-        '<span class="pick">' + t.flag + ' แชมป์: <strong>' + t.nameTh + '</strong> (' + t.code + ')</span>' +
-        '<button class="del" title="ลบ" data-idx="' + idx + '">✕</button>';
+        '<span class="pick">' + t.flag + ' แชมป์: <strong>' + t.nameTh + '</strong> (' + t.code + ')</span>';
       listEl.appendChild(li);
     });
 
-    // stats
     statsBar.innerHTML = '';
     if (preds.length) {
       var counts = {};
@@ -459,54 +520,93 @@
     }
   }
 
+  function lockForm(name) {
+    form.classList.add('locked');
+    nameInput.disabled = true;
+    submitBtn.disabled = true;
+    var radios = form.querySelectorAll('input[name="champion"]');
+    for (var i = 0; i < radios.length; i++) radios[i].disabled = true;
+    lockedBanner.style.display = 'block';
+    lockedBanner.textContent = '✅ คุณโหวตในชื่อ "' + name + '" ไปแล้ว ขอบคุณที่ร่วมสนุก!';
+  }
+
+  function showMsg(text, ok) {
+    msg.textContent = text;
+    msg.className = 'msg ' + (ok ? 'ok' : 'err');
+    setTimeout(function () { msg.textContent = ''; }, 5000);
+  }
+
+  function onVoteSaved(name) {
+    localSet(VOTED_KEY, name);
+    lockForm(name);
+    showMsg('บันทึกคำทายเรียบร้อย ขอให้ดวงดี! 🍀', true);
+  }
+
   // Bound to button click (not form submit) because sandboxed previews
   // block form submission entirely, which would swallow the event.
   function submitPrediction() {
-    var name = document.getElementById('playerName').value.trim();
+    var name = nameInput.value.trim();
     var picked = form.querySelector('input[name="champion"]:checked');
 
     if (!name) { showMsg('กรุณากรอกชื่อก่อนนะ 😊', false); return; }
     if (!picked) { showMsg('อย่าลืมเลือกทีมแชมป์ด้วยนะ ⚽', false); return; }
 
-    var preds = loadPredictions();
-    var existing = preds.findIndex(function (p) {
-      return p.name.toLowerCase() === name.toLowerCase();
-    });
-    if (existing >= 0) {
-      preds[existing].team = picked.value;
-      showMsg('อัปเดตคำทายของ "' + name + '" แล้ว! 🔄', true);
+    var key = nameKeyOf(name);
+    if (!key) { showMsg('ชื่อนี้ใช้ไม่ได้ ลองชื่ออื่นนะ', false); return; }
+    var team = picked.value;
+
+    if (sharedMode) {
+      submitBtn.disabled = true;
+      votesRef.child(key).once('value').then(function (snap) {
+        if (snap.exists()) {
+          submitBtn.disabled = false;
+          showMsg('ชื่อ "' + name + '" ถูกใช้โหวตไปแล้ว ลองใช้ชื่ออื่น 😅', false);
+          return;
+        }
+        return votesRef.child(key).set({
+          name: name,
+          team: team,
+          at: firebase.database.ServerValue.TIMESTAMP
+        }).then(function () {
+          onVoteSaved(name);
+        }).catch(function () {
+          submitBtn.disabled = false;
+          showMsg('ชื่อ "' + name + '" ถูกใช้โหวตไปแล้ว ลองใช้ชื่ออื่น 😅', false);
+        });
+      }).catch(function () {
+        submitBtn.disabled = false;
+        showMsg('เชื่อมต่อฐานข้อมูลไม่ได้ ลองใหม่อีกครั้งนะ 🙏', false);
+      });
     } else {
-      preds.push({ name: name, team: picked.value, at: Date.now() });
-      showMsg('บันทึกคำทายเรียบร้อย ขอให้ดวงดี! 🍀', true);
+      var votes = loadLocalVotes();
+      if (votes[key]) {
+        showMsg('ชื่อ "' + name + '" ถูกใช้โหวตไปแล้ว ลองใช้ชื่ออื่น 😅', false);
+        return;
+      }
+      votes[key] = { name: name, team: team, at: Date.now() };
+      saveLocalVotes(votes);
+      onVoteSaved(name);
+      render(votes);
     }
-    savePredictions(preds);
-    form.reset();
-    render();
   }
 
   document.getElementById('submitBtn').addEventListener('click', submitPrediction);
   form.addEventListener('submit', function (e) { e.preventDefault(); submitPrediction(); });
 
-  listEl.addEventListener('click', function (e) {
-    var btn = e.target.closest('.del');
-    if (!btn) return;
-    var preds = loadPredictions();
-    var p = preds[+btn.dataset.idx];
-    if (p) {
-      preds.splice(+btn.dataset.idx, 1);
-      savePredictions(preds);
-      render();
-      showMsg('ลบคำทายของ "' + p.name + '" แล้ว', true);
-    }
-  });
+  // หนึ่งเครื่องโหวตได้ครั้งเดียว
+  var votedName = localGet(VOTED_KEY);
+  if (votedName) lockForm(votedName);
 
-  function showMsg(text, ok) {
-    msg.textContent = text;
-    msg.className = 'msg ' + (ok ? 'ok' : 'err');
-    setTimeout(function () { msg.textContent = ''; }, 4000);
+  if (sharedMode) {
+    votesRef.on('value', function (snap) {
+      render(snap.val() || {});
+    }, function () {
+      modeNote.textContent = '⚠️ เชื่อมต่อฐานข้อมูลไม่ได้ (ตรวจ Rules ว่าเปิดอ่านแล้ว)';
+      modeNote.className = 'mode-note';
+    });
+  } else {
+    render(loadLocalVotes());
   }
-
-  render();
 </script>
 </body>
 </html>

@@ -1,0 +1,13 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "votes": {
+      ".read": true,
+      "$nameKey": {
+        ".write": "!data.exists() && newData.exists()",
+        ".validate": "newData.hasChildren(['name', 'team', 'at']) && newData.child('name').isString() && newData.child('name').val().length >= 1 && newData.child('name').val().length <= 30 && newData.child('team').val().matches(/^(FRA|MAR|SPA|BEL|NOR|ENG|ARG|SUI)$/) && newData.child('at').val() == now"
+      }
+    }
+  }
+}
